@@ -1,35 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:c="http://www.springframework.org/schema/c"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/aop
-        http://www.springframework.org/schema/aop/spring-aop.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="knight" class="com.springinaction.knights.BraveKnight">
-        <constructor-arg ref="quest"/>
+    <bean id="sgtPeppers" class="soundsystem.SgtPeppers"/>
+
+    <!--
+        Using namespace xmlns:c
+        We have a new approach to set constructor-arg:
+        -   c:compactDisc-ref : compactDisc is the name of parameter in CDPlayer's constructor
+        -   c:_0-ref : _0 is the index of constructor's parameters's order
+     -->
+    <bean class="soundsystem.CDPlayer" c:_0-ref="sgtPeppers"/>
+
+    <bean class="soundsystem.MyCDPlayer">
+        <property name="compactDisc" ref="sgtPeppers"/>
     </bean>
-
-    <bean id="quest" class="com.springinaction.knights.SlayDragonQuest">
-        <constructor-arg value="#{T(System).out}"/>
-    </bean>
-
-    <bean id="minstrel" class="com.springinaction.knights.Minstrel">
-        <constructor-arg value="#{T(System).out}"/>
-    </bean>
-
-    <aop:config>
-        <aop:aspect ref="minstrel">
-            <aop:pointcut id="embark"
-                          expression="execution(* *.embarkOnQuest(..))"/>
-
-            <aop:before pointcut-ref="embark"
-                        method="singBeforeQuest"/>
-
-            <aop:after pointcut-ref="embark"
-                       method="singAfterQuest"/>
-        </aop:aspect>
-    </aop:config>
 
 </beans>

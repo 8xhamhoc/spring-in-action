@@ -30,7 +30,8 @@ public class CDPlayer3Test {
     @Test
     public void play() {
         mediaPlayer.play();
-        org.junit.Assert.assertEquals("Playing Sgt. Pepper's Lonely Hearts Club Band" + " by The Beatles", log.getLog());
+        org.junit.Assert.assertEquals("Playing Sgt. Pepper's Lonely Hearts Club Band"
+                + " by The Beatles", log.getLog());
     }
 
 }
